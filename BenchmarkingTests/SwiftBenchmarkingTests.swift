@@ -29,26 +29,60 @@ class BenchmarkingTests: XCTestCase {
     
     // MARK: Nested test
     
-    func testNestedDictionaryFetchPerformance() {
+    func test_001_NSDictionaryWithoutBridgingPerformance() {
         self.measureBlock() {
             for _ in 0...10000 {
                 // Set the basline: run test with this fetch method first and set the result as the baseline
                 self.dictionaryFetcher.fetchFromNSDictionaryWithoutAnyBridgingInIfLetChain(self.nsDict)
+            }
+        }
+    }
+
+    func test_002_NSDictionaryByCastingToSwiftPerformance() {
+        self.measureBlock() {
+            for _ in 0...10000 {
                 
-                // Then comment out the baseline and comment these in one by one to compare
-//                self.dictionaryFetcher.fetchFromNSDictionaryByCastingToSwiftDictInIfLetChain(self.nsDict)
-//                self.dictionaryFetcher.fetchFromSwiftDictionaryWithoutAnyCastingInIfLetChain(self.swDict)
-//                self.dictionaryFetcher.fetchFromNSDictionaryByOptionalChain(self.nsDict)
-//                self.dictionaryFetcher.fetchFromSwiftDictionaryByUsingOptionalChain(self.swDict)
-//                self.dictionaryFetcher.fetchFromNSDictionaryUsingValueForKeyPath(self.nsDict)
+                self.dictionaryFetcher.fetchFromNSDictionaryByCastingToSwiftDictInIfLetChain(self.nsDict)
             }
         }
     }
     
+    func test_003_DictionaryWithoutAnyCastingInIfLetChainPerformance() {
+        self.measureBlock() {
+            for _ in 0...10000 {
+                self.dictionaryFetcher.fetchFromSwiftDictionaryWithoutAnyCastingInIfLetChain(self.swDict)
+            }
+        }
+    }
+
+    func test_004_NSDictionaryByOptionalChainPerformance() {
+        self.measureBlock() {
+            for _ in 0...10000 {
+                self.dictionaryFetcher.fetchFromNSDictionaryByOptionalChain(self.nsDict)
+            }
+        }
+    }
+
+    func test_005_SwiftDictionaryByUsingOptionalChainPerformance() {
+        self.measureBlock() {
+            for _ in 0...10000 {
+                self.dictionaryFetcher.fetchFromSwiftDictionaryByUsingOptionalChain(self.swDict)
+            }
+        }
+    }
+
+    func test_006_NSDictionaryUsingValueForKeyPath() {
+        self.measureBlock() {
+            for _ in 0...10000 {
+                self.dictionaryFetcher.fetchFromNSDictionaryUsingValueForKeyPath(self.nsDict)
+            }
+        }
+    }
+
     
     // MARK: Shallow test
     
-    func testShallowDictionaryFetchPerformance() {
+    func test_007_ShallowDictionaryFetchPerformance() {
         self.measureBlock() {
             for _ in 0...10000 {
                 // Set the basline: run test with this fetch method first and set the result as the baseline
@@ -57,6 +91,12 @@ class BenchmarkingTests: XCTestCase {
                 // Then comment out the baseline and comment this one in to compare
 //                self.dictionaryFetcher.shallowFetchFromSwiftDictionary(self.swDict)
             }
+        }
+    }
+    
+    func test_008_PlainObjCWithoutTypeChecking() {
+        self.measureBlock() {
+            self.dictionaryFetcher.testObjCWithoutTypeChecking()
         }
     }
 

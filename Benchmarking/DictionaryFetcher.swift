@@ -86,6 +86,15 @@ class DictionaryFetcher {
     
 }
 
+// MARK: Methods from Obj-C via bridging header
+
+extension DictionaryFetcher {
+    
+    func testObjCWithoutTypeChecking() {
+        PlainOlObjCFetcher.fullTestRunForUnsafeFetching()
+    }
+}
+
 // MARK: Shallow Fetch Methods
 
 extension DictionaryFetcher {
